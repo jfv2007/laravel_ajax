@@ -19,6 +19,7 @@ class EmployeeController extends Controller
 // handle insert employee ajax request
 //insert empleado ajax request
     public function store(Request $request){
+
         $file = $request->file('avatar');
 		$fileName = time() . '.' . $file->getClientOriginalExtension();
 		$file->storeAs('public/images', $fileName);
@@ -80,9 +81,10 @@ class EmployeeController extends Controller
 
 // handle edit an employee ajax request
 public function edit(Request $request, Employee $employee ) {
+    /* return $request; */
     $id = $request->id;
     $emp = Employee::find($id);
-    return view('Employee.index')->with('Employee',$employee);
+    /* return view('Employee.index')->with('Employee',$employee); */
     return response()->json($emp);
 }
 

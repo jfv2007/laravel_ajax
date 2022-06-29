@@ -6,11 +6,11 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>CRUD Application with image Laravel 8 and ajax </title>
 
-
+{{--
     <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Nunito:wght@400;600;700&display=swap">
     <link href="https://unpkg.com/tailwindcss@^2/dist/tailwind.min.css" rel="stylesheet">
 
-
+ --}}
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-EVSTQN3/azprG1Anm3QDgpJLIm9Nao0Yz1ztcQTwFspd3yD65VohhpuuCOmLASjC" crossorigin="anonymous">
     <link rel="stylesheet" type="text/css" href="https://cdn.datatables.net/v/dt/dt-1.11.5/datatables.min.css"/>
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.8.1/font/bootstrap-icons.css">
@@ -22,15 +22,15 @@
 
 <body>
 {{-- add new employee modal start --}}
-<div class="modal fade" id="addEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="addTagsModal" tabindex="-1" aria-labelledby="exampleModalLabelTags"
   data-bs-backdrop="static" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Add New Tag</h5>
+        <h5 class="modal-title" id="exampleModalLabelTags">Add New Tag</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
-      <form action="#" method="POST" id="add_employee_form" enctype="multipart/form-data">
+      <form action="#" method="POST" id="add_tags_form" enctype="multipart/form-data">
         @csrf
         <div class="modal-body p-4 bg-light">
           <div class="row">
@@ -64,16 +64,16 @@
             <input type="text" name="area" class="form-control" placeholder="Area" required>
           </div>
 
-         <div class="my-2">
+          <div class="my-2">
             <label for="foto">Select Foto</label>
             <input type="file" name="foto" class="form-control" required>
           </div>
-
-          <div class="grid grid-cols-1 mt-5 mx-7">
+{{--
+           <div class="grid grid-cols-1 mt-5 mx-7">
             <img id="imagenSeleccionada" style="max-height: 300px;">
         </div>
 
-        <div class="grid grid-cols-1 mt-5 mx-7">
+         <div class="grid grid-cols-1 mt-5 mx-7">
         <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Subir Imagen</label>
             <div class='flex items-center justify-center w-full'>
                 <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
@@ -86,15 +86,12 @@
                 </label>
             </div>
         </div>
-
+ --}}
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-          <button type="submit" id="add_employee_btn" class="btn btn-primary">Add Tag</button>
+          <button type="submit" id="add_tags_btn" class="btn btn-primary">Add Tag</button>
         </div>
-
-
-
       </form>
     </div>
   </div>
@@ -102,12 +99,12 @@
 {{-- add new employee modal end --}}
 
 {{-- edit employee modal start --}}
-<div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="exampleModalLabel"
+<div class="modal fade" id="editEmployeeModal" tabindex="-1" aria-labelledby="Tags"
   data-bs-backdrop="static" aria-hidden="true">
   <div class="modal-dialog modal-dialog-centered">
     <div class="modal-content">
       <div class="modal-header">
-        <h5 class="modal-title" id="exampleModalLabel">Edit Employee</h5>
+        <h5 class="modal-title" id="exampleModalLabelTags">Edit Employee</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
       </div>
       <form action="#" method="POST" id="edit_employee_form" enctype="multipart/form-data">
@@ -151,28 +148,26 @@
           </div>
           <div class="mt-2" id="foto">
 
+            {{-- <div class="grid grid-cols-1 mt-5 mx-7">
+                <img id="imagenSeleccionada" style="max-height: 300px;">
+            </div>
+
+             <div class="grid grid-cols-1 mt-5 mx-7">
+            <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Subir Imagen</label>
+                <div class='flex items-center justify-center w-full'>
+                    <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
+                        <div class='flex flex-col items-center justify-center pt-7'>
+
+                        <p class='text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Seleccione la imagen</p>
+                        </div>
+                        <!-- class hidden es para que no aparesca la leyenda de seleccione el archivo -->
+                   <input name="foto" id="foto" type='file'   />
+                    </label>
+                </div>
+            </div> --}}
+
+
           </div>
-          <div class="grid grid-cols-1 mt-5 mx-7">
-
-              <img src="{{asset('storage/images/planta/') }}"."foto"  width="30%" id="imagenSeleccionada">
-          </div>
-
-          <div class="grid grid-cols-1 mt-5 mx-7">
-          <label class="uppercase md:text-sm text-xs text-gray-500 text-light font-semibold mb-1">Subir Imagen</label>
-              <div class='flex items-center justify-center w-full'>
-                  <label class='flex flex-col border-4 border-dashed w-full h-32 hover:bg-gray-100 hover:border-purple-300 group'>
-                      <div class='flex flex-col items-center justify-center pt-7'>
-                   <!--   <svg class="w-10 h-10 text-purple-400 group-hover:text-purple-600" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 16l4.586-4.586a2 2 0 012.828 0L16 16m-2-2l1.586-1.586a2 2 0 012.828 0L20 14m-6-6h.01M6 20h12a2 2 0 002-2V6a2 2 0 00-2-2H6a2 2 0 00-2 2v12a2 2 0 002 2z"></path></svg>-->
-                      <p class='lowercase text-sm text-gray-400 group-hover:text-purple-600 pt-1 tracking-wider'>Seleccione la imagen</p>
-                      </div>
-                  <input name="foto" id="foto" type='file' class="hidden" />
-
-                  </label>
-              </div>
-          </div>
-
-
-
         </div>
         <div class="modal-footer">
           <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -191,10 +186,10 @@
         <div class="card shadow">
           <div class="card-header bg-danger d-flex justify-content-between align-items-center">
             <h3 class="text-light">Manage Tags</h3>
-            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addEmployeeModal"><i
+            <button class="btn btn-light" data-bs-toggle="modal" data-bs-target="#addTagsModal"><i
                 class="bi-plus-circle me-2"></i>Add New Tag</button>
           </div>
-          <div class="card-body" id="show_all_employees">
+          <div class="card-body" id="show_all_tags">
             <h1 class="text-center text-secondary my-5">Loading...</h1>
           </div>
         </div>
@@ -215,34 +210,67 @@
 
     <script>
      //codigo para que se vea la imagen previa
-    $(document).ready(function (e) {
-        $('#foto').change(function(){
-            let reader = new FileReader();
-            reader.onload = (e) => {
-                $('#imagenSeleccionada').attr('src', e.target.result);
-            }
-            reader.readAsDataURL(this.files[0]);  /* para ver la vista previa */
-        });
-    });
+     /*  function readImage (input) {
+        if (input.files && input.files[0]) {
+          var reader = new FileReader();
+          reader.onload = function (e) {
+              $('#imagenSeleccionada').attr('src', e.target.result); // Renderizamos la imagen
+          }
+          reader.readAsDataURL(input.files[0]);
+        }
+      }
 
-
-
-
-       //getch all employees ajax request
-       fetchAllEmployees();
-
-function fetchAllEmployees() {
-      $.ajax({
-    url: '{{ route('fetchAll.tags') }}',
-    method: 'get',
-    success: function(response) {
-      $("#show_all_employees").html(response);
-      $("table").DataTable({
-        order: [0, 'desc']
+      $("#foto").change(function () {
+        // Código a ejecutar cuando se detecta un cambio de archiv
+        readImage(this);
       });
+ */
+
+
+ $("#add_tags_form").submit(function(e) {
+        e.preventDefault();
+        const fd = new FormData(this);
+        $("#add_tags_btn").text('Adding...');
+        $.ajax({
+          url: '{{ route('store.tags') }}',
+          method: 'post',
+          data: fd,
+          cache: false,
+          contentType: false,
+          processData: false,
+          dataType: 'json',
+          success: function(response) {
+            if (response.status == 200) {
+              Swal.fire(
+                'Added!',
+                'Employee Added Successfully!',
+                'success'
+              )
+              fetchAllEmployees();
+            }
+            $("#add_tags_btn").text('Add Employee');
+            $("#add_tags_form")[0].reset();
+            $("#addTagsModal").modal('hide');
+          }
+        });
+      });
+
+
+      //getch all employees ajax request
+        fetchAllEmployees();
+
+      function fetchAllEmployees() {
+            $.ajax({
+          url: '{{ route('fetchAll.tags') }}',
+          method: 'get',
+          success: function(response) {
+            $("#show_all_tags").html(response);
+            $("table").DataTable({
+              order: [0, 'desc']
+            });
+          }
+    });
     }
-});
-}
 
 
 // delete employee ajax request
@@ -261,7 +289,7 @@ $(document).on('click', '.deleteIcon', function(e) {
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url: '{{ route('delete.tags') }}',
+              url: '{{ route('delete.employee') }}',
               method: 'delete',
               data: {
                 id: id,
@@ -289,7 +317,7 @@ $(document).on('click', '.deleteIcon', function(e) {
         const fd = new FormData(this);
         $("#edit_employee_btn").text('Updating...');
         $.ajax({
-          url: '{{ route('update.tags') }}',
+          url: '{{ route('update.employee') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -316,64 +344,31 @@ $(document).on('click', '.deleteIcon', function(e) {
 
 
  // edit employee ajax request
-    $(document).on('click', '.editIcon', function(e) {
+  $(document).on('click', '.editIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
         $.ajax({
-          url: '{{ route('edit.tags') }}',
+          url: '{{ route('edit.employee') }}',
           method: 'get',
           data: {
             id: id,
             _token: '{{ csrf_token() }}'
           },
           success: function(response) {
-            $("#tag").val(response.tag);
-            $("#descripcion").val(response.descripcion);
-            $("#operacion").val(response.operacion);
-            $("#ubicacion").val(response.ubicacion);
-            $("#ct").val(response.ct);
-            $("#planta").val(response.planta);
-            $("#area").val(response.area);
-            $("#foto").html(
-              `<img src="storage/images/planta/${response.foto}" width="80%" class="img-fluid img-thumbnail">`);
-
+            $("#fname").val(response.first_name);
+            $("#lname").val(response.last_name);
+            $("#email").val(response.email);
+            $("#phone").val(response.phone);
+            $("#post").val(response.post);
+            $("#avatar").html(
+              `<img src="storage/images/${response.avatar}" width="100" class="img-fluid img-thumbnail">`);
             $("#emp_id").val(response.id);
-            $("#emp_foto").val(response.foto);
+            $("#emp_avatar").val(response.avatar);
           }
         });
       });
-
-
-
-
-
-    // add new employee ajax request
-      $("#add_employee_form").submit(function(e) {
-        e.preventDefault();
-        const fd = new FormData(this);
-        $("#add_employee_btn").text('Adding...');
-        $.ajax({
-          url: '{{ route('store.tags') }}',
-          method: 'post',
-          data: fd,
-          cache: false,
-          contentType: false,
-          processData: false,
-          success: function(res) {
-            if (res.status == 200) {
-              Swal.fire(
-                'Added!',
-                'Employee Added Successfully!',
-                'success'
-              )
-              fetchAllEmployees();
-            }
-            $("#add_employee_btn").text('Add Tag');
-            $("#add_employee_form")[0].reset();
-            $("#addEmployeeModal").modal('hide');
-          }
-        });
-    });
     </script>
+
+
 </body>
 </html>

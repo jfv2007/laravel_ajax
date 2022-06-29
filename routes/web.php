@@ -2,6 +2,7 @@
 
 use App\Http\Controllers\EmployeeController;
 use App\Http\Controllers\TtagController;
+use App\Http\Controllers\Tag18Controller;
 
 use App\Models\Employee;
 use App\Models\Ttags;
@@ -37,3 +38,10 @@ Route::post('tags/update', [TtagController::class, 'update'])->name('update.tags
 
 //de esta forma no funciona
 //Route::resource('tags','App\Http\Controllers\TtagController');
+
+Route::get('/tag18', [Tag18Controller::class, 'index'])->name('tag18');
+Route::post('tag18/store', [Tag18Controller::class, 'store'])->name('store.tag18');
+Route::get('tag18/fetchall', [Tag18Controller::class, 'fetchAll'])->name('fetchAll.tag18');
+Route::delete('tag18/delete', [Tag18Controller::class, 'delete'])->name('delete.tag18');
+Route::get('tag18/edit', [Tag18Controller::class, 'edit'])->name('edit.tag18');
+Route::post('tag18/update', [Tag18Controller::class, 'update'])->name('update.tag18');

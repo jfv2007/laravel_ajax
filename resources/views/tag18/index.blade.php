@@ -32,30 +32,15 @@
             <div class="modal-body p-4 bg-light">
               <div class="row">
                 <div class="col-lg">
-                  <label for="fname">First Name</label>
-                  <input type="text" name="fname" class="form-control" placeholder="First Name" required>
+                  <label for="tag">Tag</label>
+                  <input type="text" name="tag" class="form-control" placeholder="Tag" required>
                 </div>
                 <div class="col-lg">
-                  <label for="lname">Last Name</label>
-                  <input type="text" name="lname" class="form-control" placeholder="Last Name" required>
+                  <label for="descripcion">Descripcion</label>
+                  <input type="text" name="descripcion" class="form-control" placeholder="descripcion" required>
                 </div>
               </div>
-              <div class="my-2">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" class="form-control" placeholder="E-mail" required>
-              </div>
-              <div class="my-2">
-                <label for="phone">Phone</label>
-                <input type="tel" name="phone" class="form-control" placeholder="Phone" required>
-              </div>
-              <div class="my-2">
-                <label for="post">Post</label>
-                <input type="text" name="post" class="form-control" placeholder="Post" required>
-              </div>
-              <div class="my-2">
-                <label for="avatar">Select Avatar</label>
-                <input type="file" name="avatar" class="form-control" required>
-              </div>
+
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -79,37 +64,19 @@
           <form action="#" method="POST" id="edit_employee_form" enctype="multipart/form-data">
             @csrf
             <input type="hidden" name="emp_id" id="emp_id">
-            <input type="hidden" name="emp_avatar" id="emp_avatar">
+            {{-- <input type="hidden" name="emp_avatar" id="emp_avatar"> --}}
             <div class="modal-body p-4 bg-light">
               <div class="row">
                 <div class="col-lg">
-                  <label for="fname">First Name</label>
-                  <input type="text" name="fname" id="fname" class="form-control" placeholder="First Name" required>
+                  <label for="tag">Tag</label>
+                  <input type="text" name="tag" id="tag" class="form-control" placeholder="Tag" required>
                 </div>
                 <div class="col-lg">
-                  <label for="lname">Last Name</label>
-                  <input type="text" name="lname" id="lname" class="form-control" placeholder="Last Name" required>
+                  <label for="descripcion">Descripcion</label>
+                  <input type="text" name="descripcion" id="descripcion" class="form-control" placeholder="Descripcion" required>
                 </div>
               </div>
-              <div class="my-2">
-                <label for="email">E-mail</label>
-                <input type="email" name="email" id="email" class="form-control" placeholder="E-mail" required>
-              </div>
-              <div class="my-2">
-                <label for="phone">Phone</label>
-                <input type="tel" name="phone" id="phone" class="form-control" placeholder="Phone" required>
-              </div>
-              <div class="my-2">
-                <label for="post">Post</label>
-                <input type="text" name="post" id="post" class="form-control" placeholder="Post" required>
-              </div>
-              <div class="my-2">
-                <label for="avatar">Select Avatar</label>
-                <input type="file" name="avatar" class="form-control">
-              </div>
-              <div class="mt-2" id="avatar">
 
-              </div>
             </div>
             <div class="modal-footer">
               <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
@@ -172,7 +139,7 @@
         const fd = new FormData(this);
         $("#add_employee_btn").text('Adding...');
         $.ajax({
-          url: '{{ route('store.employee') }}',
+          url: '{{ route('store.tag18') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -202,7 +169,7 @@
 
       function fetchAllEmployees() {
             $.ajax({
-          url: '{{ route('fetchAll.employee') }}',
+          url: '{{ route('fetchAll.tag18') }}',
           method: 'get',
           success: function(response) {
             $("#show_all_employees").html(response);
@@ -230,7 +197,7 @@ $(document).on('click', '.deleteIcon', function(e) {
         }).then((result) => {
           if (result.isConfirmed) {
             $.ajax({
-              url: '{{ route('delete.employee') }}',
+              url: '{{ route('delete.tag18') }}',
               method: 'delete',
               data: {
                 id: id,
@@ -258,7 +225,7 @@ $(document).on('click', '.deleteIcon', function(e) {
         const fd = new FormData(this);
         $("#edit_employee_btn").text('Updating...');
         $.ajax({
-          url: '{{ route('update.employee') }}',
+          url: '{{ route('update.tag18') }}',
           method: 'post',
           data: fd,
           cache: false,
@@ -289,22 +256,16 @@ $(document).on('click', '.deleteIcon', function(e) {
         e.preventDefault();
         let id = $(this).attr('id');
         $.ajax({
-          url: '{{ route('edit.employee') }}',
+          url: '{{ route('edit.tag18') }}',
           method: 'get',
           data: {
             id: id,
             _token: '{{ csrf_token() }}'
           },
           success: function(response) {
-            $("#fname").val(response.first_name);
-            $("#lname").val(response.last_name);
-            $("#email").val(response.email);
-            $("#phone").val(response.phone);
-            $("#post").val(response.post);
-            $("#avatar").html(
-              `<img src="storage/images/${response.avatar}" width="100" class="img-fluid img-thumbnail">`);
+            $("#tag").val(response.tag);
+            $("#descripcion").val(response.descripcion);
             $("#emp_id").val(response.id);
-            $("#emp_avatar").val(response.avatar);
           }
         });
       });
